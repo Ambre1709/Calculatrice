@@ -11,7 +11,8 @@
         >
           <span class="text-base">{{ formule }}</span
           ><br />
-          {{ result }}
+          <span v-if="!error">{{ result }}</span
+          ><span v-if="error">{{ error }}</span>
         </div>
 
         <div class="bg-purpletor-dark text-yellowtor p-6 rounded-md">
@@ -207,6 +208,7 @@
 export default {
   data() {
     return {
+      error: "",
       formule: "",
       result: 0,
     };
@@ -216,12 +218,18 @@ export default {
       this.formule += element;
     },
     equal() {
-      this.result = eval(this.formule);
+      try {
+        this.result = eval(this.formule);
+      } catch (error) {
+        this.error = "ERROR";
+      }
     },
     drop() {
       this.formule = this.formule.slice(0, -1);
+      this.error = "";
     },
     cleanAll() {
+      this.error = "";
       this.formule = "";
       this.result = 0;
     },
