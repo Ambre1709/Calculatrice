@@ -4,11 +4,12 @@
   >
     Hello world!
   </h1>
-  <div class="container flex justify-center">
+  <div class="container flex flex-row justify-center">
     <div
-      class="bg-teal-600 dark:bg-purpletor-darkest w-96 h-xl text-white font-bold p-8 rounded-md"
+      class="bg-teal-600 dark:bg-purpletor-darkest w-96 text-white font-bold p-8 rounded-md"
     >
-      <h2 class="text-2xl text-white dark:text-yellowtor mb-4">calc</h2>
+      <h2 class="h-10 text-2xl text-white dark:text-yellowtor mb-4">Calc</h2>
+
       <div
         class="bg-teal-800 dark:bg-purpletor-dark text-white dark:text-yellowtor mb-8 rounded-md text-right text-2xl pr-6 py-4"
       >
@@ -44,6 +45,33 @@
           />
           <Button color="secondary" btn="large" label="=" @click="equal()" />
         </div>
+      </div>
+    </div>
+
+    <div class="bg-teal-800 dark:bg-purpletor-dark w-4 rounded-md"></div>
+
+    <div
+      class="flex flex-col justify-between bg-teal-600 dark:bg-purpletor-darkest w-96 text-white font-bold p-8 rounded-md"
+    >
+      <div class="h-full">
+        <h2 class="h-10 text-2xl text-white dark:text-yellowtor mb-4">
+          History
+        </h2>
+
+        <div
+          class="overflow-auto bg-teal-800 dark:bg-purpletor-dark p-6 rounded-md h-5/6 text-right"
+        >
+          <span class="text-base">{{ formule }}</span
+          ><br />
+          <span v-if="!error">{{ result }}</span
+          ><span v-if="error">{{ error }}</span>
+        </div>
+      </div>
+      <div
+        class="bg-teal-800 dark:bg-purpletor-dark px-4 py-2 rounded-md text-center text-sm flex justify-between"
+      >
+        <div>Copyright © 2022</div>
+        <div>Ambre Vanneuville</div>
       </div>
     </div>
   </div>
