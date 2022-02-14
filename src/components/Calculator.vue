@@ -1,17 +1,12 @@
 <template>
-  <h1
-    class="text-3xl font-bold my-20 text-center text-black dark:text-yellowtor"
-  >
-    Hello world!
-  </h1>
-  <div class="container flex flex-row justify-center">
+  <div class="mt-20 flex flex-row justify-center">
     <div
       class="bg-teal-600 dark:bg-purpletor-darkest w-96 text-white font-bold p-8 rounded-md"
     >
       <h2 class="h-10 text-2xl text-white dark:text-yellowtor mb-4">Calc</h2>
 
       <div
-        class="bg-teal-800 dark:bg-purpletor-dark text-white dark:text-yellowtor mb-8 rounded-md text-right text-2xl pr-6 py-4"
+        class="overflow-auto h-28 break-words bg-teal-800 dark:bg-purpletor-dark text-white dark:text-yellowtor mb-8 rounded-md text-right text-2xl px-6 py-4"
       >
         <span class="text-base">{{ formule }}</span
         ><br />
@@ -41,7 +36,7 @@
             color="secondary"
             btn="large"
             label="RESET"
-            @click="cleanAll()"
+            @click="clearAll()"
           />
           <Button color="secondary" btn="large" label="=" @click="equal()" />
         </div>
@@ -59,12 +54,30 @@
         </h2>
 
         <div
-          class="overflow-auto bg-teal-800 dark:bg-purpletor-dark p-6 rounded-md h-5/6 text-right"
+          class="relative overflow-auto bg-teal-800 dark:bg-purpletor-dark p-6 rounded-md h-[464px] text-right"
         >
-          <span class="text-base">{{ formule }}</span
-          ><br />
-          <span v-if="!error">{{ result }}</span
-          ><span v-if="error">{{ error }}</span>
+          <div v-for="(history, n) in histories" :key="n">
+            <div class="flex justify-end mb-2 pb-2 border-b-[1px] border-white">
+              <span class="break-words overflow-auto max-h-24 mr-4">{{
+                history
+              }}</span>
+              <div>
+                <button
+                  class="flex items-center justify-center rounded-full w-6 h-6"
+                  @click="removeHistory(n)"
+                >
+                  <Delete class="text-red-500" />
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- <button
+              v-if="histories > 0"
+              class="absolute bottom-2 right-6"
+              @click="clearStorage()"
+            >
+              Clear history
+            </button> -->
         </div>
       </div>
       <div
@@ -79,37 +92,76 @@
 
 <script>
 import Button from "./Button.vue";
+import Delete from "./icons/Delete.vue";
 export default {
   components: {
     Button,
+    Delete,
   },
   data() {
     return {
       error: "",
-      formule: "",
+      formule: null,
       result: 0,
+      histories: [],
+      equation: "",
+      total: "",
     };
   },
+  mounted() {
+    if (localStorage.getItem("histories")) {
+      try {
+        this.histories = JSON.parse(localStorage.getItem("histories"));
+      } catch (e) {
+        localStorage.removeItem("histories");
+      }
+    }
+  },
   methods: {
+    removeHistory(x) {
+      this.histories.splice(x, 1);
+      this.saveHistories();
+    },
+
+    saveHistories() {
+      const parsed = JSON.stringify(this.histories);
+      localStorage.setItem("histories", parsed);
+    },
     operate(element) {
       this.formule += element;
     },
     equal() {
-      try {
-        this.result = eval(this.formule);
-      } catch (error) {
-        this.error = "ERROR";
+      if (this.formule !== null) {
+        try {
+          this.result = eval(this.formule);
+          if (eval(this.formule) == null) {
+            this.result = null;
+          }
+        } catch (error) {
+          this.error = "ERROR";
+        }
+        this.total = eval(this.formule);
+        this.equation = this.formule + " = " + this.total;
+        this.histories.push(this.equation);
+
+        this.saveHistories();
       }
     },
     drop() {
-      this.formule = this.formule.slice(0, -1);
+      if (this.result !== null) {
+        this.formule = this.formule.slice(0, -1);
+      }
       this.error = "";
     },
-    cleanAll() {
+    clearAll() {
       this.error = "";
-      this.formule = "";
+      this.formule = null;
       this.result = 0;
     },
+    // clearStorage() {
+    //   localStorage.clear();
+    //   this.histories = "";
+    // },
   },
 };
 </script>
