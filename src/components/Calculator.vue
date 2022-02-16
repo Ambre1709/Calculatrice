@@ -71,13 +71,9 @@
               </div>
             </div>
           </div>
-          <!-- <button
-              v-if="histories > 0"
-              class="absolute bottom-2 right-6"
-              @click="clearStorage()"
-            >
-              Clear history
-            </button> -->
+          <!-- <button v-if="histories > 0" class="absolute bottom-2 right-6" @click="clearStorage()">
+            Clear history
+          </button> -->
         </div>
       </div>
       <div
@@ -101,7 +97,7 @@ export default {
   data() {
     return {
       error: "",
-      formule: null,
+      formule: "",
       result: 0,
       histories: [],
       equation: "",
@@ -131,7 +127,7 @@ export default {
       this.formule += element;
     },
     equal() {
-      if (this.formule !== null) {
+      if (this.formule && this.result !== null) {
         try {
           this.result = eval(this.formule);
           if (eval(this.formule) == null) {
@@ -143,19 +139,23 @@ export default {
         this.total = eval(this.formule);
         this.equation = this.formule + " = " + this.total;
         this.histories.push(this.equation);
-
         this.saveHistories();
+
+        // this.formule = this.result;
       }
     },
     drop() {
       if (this.result !== null) {
         this.formule = this.formule.slice(0, -1);
+      } else {
+        this.formule = "";
+        this.result = 0;
       }
       this.error = "";
     },
     clearAll() {
       this.error = "";
-      this.formule = null;
+      this.formule = "";
       this.result = 0;
     },
     // clearStorage() {

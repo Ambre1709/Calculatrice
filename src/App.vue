@@ -1,8 +1,6 @@
 <template>
-  <div class="">
-    <Darkmode />
-    <Calculator />
-  </div>
+  <Darkmode />
+  <Calculator />
 </template>
 
 <script>
