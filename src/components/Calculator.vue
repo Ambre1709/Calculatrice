@@ -1,12 +1,12 @@
 <template>
   <div class="mt-20 flex flex-row justify-center">
     <div
-      class="bg-teal-600 dark:bg-purpletor-darkest w-96 text-white font-bold p-8 rounded-md"
+      class="border-2 border-teal-800 dark:border-gray-500 bg-teal-600 dark:bg-gray-900 w-96 text-white font-bold p-8 rounded-md"
     >
-      <h2 class="h-10 text-2xl text-white dark:text-yellowtor mb-4">Calc</h2>
+      <h2 class="h-10 text-2xl text-white mb-4">Calc</h2>
 
       <div
-        class="overflow-auto h-28 break-words bg-teal-800 dark:bg-purpletor-dark text-white dark:text-yellowtor mb-8 rounded-md text-right text-2xl px-6 py-4"
+        class="overflow-auto h-28 break-words bg-teal-800 dark:bg-gray-700 text-white mb-8 rounded-md text-right text-2xl px-6 py-4"
       >
         <span class="text-base">{{ formule }}</span
         ><br />
@@ -14,7 +14,7 @@
         ><span v-if="error">{{ error }}</span>
       </div>
 
-      <div class="bg-teal-800 dark:bg-purpletor-dark p-6 rounded-md">
+      <div class="bg-teal-800 dark:bg-gray-700 p-6 rounded-md">
         <div class="grid grid-cols-4 gap-4">
           <Button label="7" @click="operate(7)" />
           <Button label="8" @click="operate(8)" />
@@ -43,18 +43,16 @@
       </div>
     </div>
 
-    <div class="bg-teal-800 dark:bg-purpletor-dark w-4 rounded-md"></div>
+    <div class="bg-teal-800 dark:bg-gray-500 w-4 rounded-md"></div>
 
     <div
-      class="flex flex-col justify-between bg-teal-600 dark:bg-purpletor-darkest w-96 text-white font-bold p-8 rounded-md"
+      class="border-2 border-teal-800 dark:border-gray-500 flex flex-col justify-between bg-teal-600 dark:bg-gray-900 w-96 text-white font-bold p-8 rounded-md"
     >
       <div class="h-full">
-        <h2 class="h-10 text-2xl text-white dark:text-yellowtor mb-4">
-          History
-        </h2>
+        <h2 class="h-10 text-2xl text-white mb-4">History</h2>
 
         <div
-          class="relative overflow-auto bg-teal-800 dark:bg-purpletor-dark p-6 rounded-md h-[464px] text-right"
+          class="relative overflow-auto bg-teal-800 dark:bg-gray-700 p-6 rounded-md h-[464px] text-right"
         >
           <div v-for="(history, n) in histories" :key="n">
             <div class="flex justify-end mb-2 pb-2 border-b-[1px] border-white">
@@ -82,7 +80,7 @@
         </div>
       </div>
       <div
-        class="bg-teal-800 dark:bg-purpletor-dark px-4 py-2 rounded-md text-center text-sm flex justify-between"
+        class="bg-teal-800 dark:bg-gray-700 px-4 py-2 rounded-md text-center text-sm flex justify-between"
       >
         <div>Copyright © 2022</div>
         <div>Ambre Vanneuville</div>
