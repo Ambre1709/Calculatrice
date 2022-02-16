@@ -71,9 +71,10 @@
               </div>
             </div>
           </div>
-          <!-- <button v-if="histories > 0" class="absolute bottom-2 right-6" @click="clearStorage()">
+          <!-- v-if="histories > 0" -->
+          <button class="absolute bottom-2 right-6" @click="clearStorage()">
             Clear history
-          </button> -->
+          </button>
         </div>
       </div>
       <div
@@ -158,10 +159,11 @@ export default {
       this.formule = "";
       this.result = 0;
     },
-    // clearStorage() {
-    //   localStorage.clear();
-    //   this.histories = "";
-    // },
+    clearStorage() {
+      localStorage.clear();
+      this.histories = "";
+      window.location.reload();
+    },
   },
 };
 </script>
