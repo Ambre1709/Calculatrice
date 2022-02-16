@@ -162,7 +162,7 @@ export default {
       this.result = 0;
     },
     clearStorage() {
-      localStorage.clear();
+      localStorage.removeItem("histories", []);
       this.histories = "";
       window.location.reload();
     },
