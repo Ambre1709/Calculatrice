@@ -71,10 +71,14 @@
               </div>
             </div>
           </div>
-          <!-- v-if="histories > 0" -->
-          <button class="absolute bottom-2 right-6" @click="clearStorage()">
-            Clear history
-          </button>
+          <template v-if="histories > []">
+            <button
+              class="absolute bottom-2 right-6 flex items-center"
+              @click="clearStorage()"
+            >
+              <Delete class="mr-1 text-white" /> Clear all
+            </button>
+          </template>
         </div>
       </div>
       <div
