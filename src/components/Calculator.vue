@@ -107,7 +107,65 @@ export default {
       total: "",
     };
   },
+
   mounted() {
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        this.equal();
+      }
+      if (event.key === "0") {
+        this.operate(0);
+      }
+      if (event.key === "1") {
+        this.operate(1);
+      }
+      if (event.key === "2") {
+        this.operate(2);
+      }
+      if (event.key === "3") {
+        this.operate(3);
+      }
+      if (event.key === "4") {
+        this.operate(4);
+      }
+      if (event.key === "5") {
+        this.operate(5);
+      }
+      if (event.key === "6") {
+        this.operate(6);
+      }
+      if (event.key === "7") {
+        this.operate(7);
+      }
+      if (event.key === "8") {
+        this.operate(8);
+      }
+      if (event.key === "9") {
+        this.operate(9);
+      }
+      if (event.key === "Backspace") {
+        this.drop();
+      }
+      if (event.key === "-") {
+        this.operate("-");
+      }
+      if (event.key === "+") {
+        this.operate("+");
+      }
+      if (event.key === "/") {
+        this.operate("/");
+      }
+      if (event.key === "*") {
+        this.operate("*");
+      }
+      if (event.key === ".") {
+        this.operate(".");
+      }
+      if (event.key === "Delete") {
+        this.clearAll();
+      }
+    });
+
     if (localStorage.getItem("histories")) {
       try {
         this.histories = JSON.parse(localStorage.getItem("histories"));
