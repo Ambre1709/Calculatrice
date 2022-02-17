@@ -54,6 +54,11 @@
         <div
           class="overflow-auto scrollbar scrollbar-thumb-teal-900 dark:scrollbar-thumb-orange-300 dark:scrollbar-track-gray-200 scrollbar-track-teal-100 bg-teal-800 dark:bg-gray-700 p-6 rounded-md h-[464px] text-right"
         >
+          <template v-if="histories > []">
+            <button class="mb-4 flex items-center" @click="clearStorage()">
+              <Delete class="mr-1 text-white" /> Clear all
+            </button>
+          </template>
           <div v-for="(history, n) in histories" :key="n">
             <div class="flex justify-end mb-2 pb-2 border-b-[1px] border-white">
               <span class="break-words max-h-24 mr-4">{{ history }}</span>
@@ -67,11 +72,6 @@
               </div>
             </div>
           </div>
-          <template v-if="histories > []">
-            <button class="mt-8 flex items-center" @click="clearStorage()">
-              <Delete class="mr-1 text-white" /> Clear all
-            </button>
-          </template>
         </div>
       </div>
       <div
@@ -217,7 +217,8 @@ export default {
     clearStorage() {
       localStorage.removeItem("histories", []);
       this.histories = "";
-      window.location.reload();
+      // window.location.reload();
+      this.$emit("refresh");
     },
   },
 };
