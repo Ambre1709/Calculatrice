@@ -1,3 +1,5 @@
+const plugin = require("tailwindcss/plugin");
+
 module.exports = {
   darkMode: "class",
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
@@ -10,5 +12,5 @@ module.exports = {
       colors: {},
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")],
 };

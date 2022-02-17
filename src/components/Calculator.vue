@@ -6,7 +6,7 @@
       <h2 class="h-10 text-2xl text-white mb-4">Calc</h2>
 
       <div
-        class="overflow-auto h-28 break-words bg-teal-800 dark:bg-gray-700 text-white mb-8 rounded-md text-right text-2xl px-6 py-4"
+        class="overflow-auto scrollbar scrollbar-thumb-teal-900 dark:scrollbar-thumb-orange-300 dark:scrollbar-track-gray-200 scrollbar-track-teal-100 h-28 break-words bg-teal-800 dark:bg-gray-700 text-white mb-8 rounded-md text-right text-2xl px-6 py-4"
       >
         <span class="text-base">{{ formule }}</span
         ><br />
@@ -52,13 +52,11 @@
         <h2 class="h-10 text-2xl text-white mb-4">History</h2>
 
         <div
-          class="relative overflow-auto bg-teal-800 dark:bg-gray-700 p-6 rounded-md h-[464px] text-right"
+          class="overflow-auto scrollbar scrollbar-thumb-teal-900 dark:scrollbar-thumb-orange-300 dark:scrollbar-track-gray-200 scrollbar-track-teal-100 bg-teal-800 dark:bg-gray-700 p-6 rounded-md h-[464px] text-right"
         >
           <div v-for="(history, n) in histories" :key="n">
             <div class="flex justify-end mb-2 pb-2 border-b-[1px] border-white">
-              <span class="break-words overflow-auto max-h-24 mr-4">{{
-                history
-              }}</span>
+              <span class="break-words max-h-24 mr-4">{{ history }}</span>
               <div>
                 <button
                   class="flex items-center justify-center rounded-full w-6 h-6"
@@ -70,10 +68,7 @@
             </div>
           </div>
           <template v-if="histories > []">
-            <button
-              class="absolute bottom-2 right-6 flex items-center"
-              @click="clearStorage()"
-            >
+            <button class="mt-8 flex items-center" @click="clearStorage()">
               <Delete class="mr-1 text-white" /> Clear all
             </button>
           </template>
