@@ -182,7 +182,7 @@ export default {
     operate(element) {
       this.formule += element;
     },
-    equal() {
+    equal(x) {
       if (this.formule && this.result !== null) {
         try {
           this.result = eval(this.formule);
@@ -196,8 +196,10 @@ export default {
         this.equation = this.formule + " = " + this.total;
         this.histories.push(this.equation);
         this.saveHistories();
-
-        // this.formule = this.result;
+        // Afficher uniquement les 10 derniers résultats
+        if (this.histories.length > 10) {
+          this.histories.splice(x, 1);
+        }
       }
     },
     drop() {
@@ -217,8 +219,8 @@ export default {
     clearStorage() {
       localStorage.removeItem("histories", []);
       this.histories = "";
-      // window.location.reload();
-      this.$emit("refresh");
+      window.location.reload();
+      // this.$emit("refresh");
     },
   },
 };
