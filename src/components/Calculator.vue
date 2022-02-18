@@ -60,7 +60,10 @@
             </button>
           </template>
           <div v-for="(history, n) in histories" :key="n">
-            <div class="flex justify-end mb-2 pb-2 border-b-[1px] border-white">
+            <div
+              @click="modify()"
+              class="bg-green-500 flex justify-end mb-2 pb-2 border-b-[1px] border-white"
+            >
               <span class="break-words max-h-24 mr-4">{{ history }}</span>
               <div>
                 <button
@@ -170,6 +173,14 @@ export default {
     }
   },
   methods: {
+    modify(x) {
+      let history = JSON.parse(localStorage.histories);
+      console.log(history[x]);
+      // console.log(history);
+    },
+
+    //  let lastItem = this.histories[this.histories.length - 1];
+    //     console.log(`Last element is ${lastItem}`);
     removeHistory(x) {
       this.histories.splice(x, 1);
       this.saveHistories();
