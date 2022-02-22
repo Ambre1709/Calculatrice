@@ -78,19 +78,25 @@
                 <Delete class="mr-1 text-white" /> Clear all
               </button>
             </template>
-            <div v-for="(history, n) in histories" :key="n">
+            <div class="flex flex-col-reverse">
               <div
-                @click="modify(n)"
-                class="cursor-pointer flex justify-end mb-2 pb-2 border-b-[1px] border-white"
+                class="last:text-2xl text-sm"
+                v-for="(history, n) in histories"
+                :key="n"
               >
-                <span class="break-words max-h-24 mr-4">{{ history }}</span>
-                <div>
-                  <button
-                    class="flex items-center justify-center rounded-full w-6 h-6"
-                    @click="removeHistory(n)"
-                  >
-                    <Delete class="text-red-500" />
-                  </button>
+                <div
+                  @click="modify(n)"
+                  class="cursor-pointer flex justify-end mb-2 pb-2 border-b-[1px] border-white"
+                >
+                  <span class="break-words max-h-24 mr-4">{{ history }}</span>
+                  <div>
+                    <button
+                      class="flex items-center justify-center rounded-full w-6 h-6"
+                      @click="removeHistory(n)"
+                    >
+                      <Delete class="text-red-500" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -202,8 +208,6 @@ export default {
       // console.log(history);
     },
 
-    //  let lastItem = this.histories[this.histories.length - 1];
-    //     console.log(`Last element is ${lastItem}`);
     removeHistory(x) {
       this.histories.splice(x, 1);
       this.saveHistories();
