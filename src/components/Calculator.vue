@@ -1,87 +1,107 @@
 <template>
-  <div class="mt-20 flex flex-row justify-center">
-    <div
-      class="border-2 border-teal-800 dark:border-gray-500 bg-teal-600 dark:bg-gray-900 w-96 text-white font-bold p-8 rounded-md"
-    >
-      <h2 class="h-10 text-2xl text-white mb-4">Calc</h2>
-
+  <div class="mt-20 flex justify-center">
+    <div class="relative flex flex-row">
       <div
-        class="overflow-auto scrollbar scrollbar-thumb-teal-900 dark:scrollbar-thumb-orange-300 dark:scrollbar-track-gray-200 scrollbar-track-teal-100 h-28 break-words bg-teal-800 dark:bg-gray-700 text-white mb-8 rounded-md text-right text-2xl px-6 py-4"
+        class="border-2 border-teal-800 dark:border-gray-500 bg-teal-600 dark:bg-gray-900 w-96 text-white font-bold p-8 rounded-md"
       >
-        <span class="text-base">{{ formule }}</span
-        ><br />
-        <span v-if="!error">{{ result }}</span
-        ><span v-if="error">{{ error }}</span>
-      </div>
-
-      <div class="bg-teal-800 dark:bg-gray-700 p-6 rounded-md">
-        <div class="grid grid-cols-4 gap-4">
-          <Button label="7" @click="operate(7)" />
-          <Button label="8" @click="operate(8)" />
-          <Button label="9" @click="operate(9)" />
-          <Button color="secondary" label="DEL" @click="drop()" />
-          <Button label="4" @click="operate(4)" />
-          <Button label="5" @click="operate(5)" />
-          <Button label="6" @click="operate(6)" />
-          <Button label="+" @click="operate('+')" />
-          <Button label="1" @click="operate(1)" />
-          <Button label="2" @click="operate(2)" />
-          <Button label="3" @click="operate(3)" />
-          <Button label="-" @click="operate('-')" />
-          <Button label="." @click="operate('.')" />
-          <Button label="0" @click="operate(0)" />
-          <Button label="/" @click="operate('/')" />
-          <Button label="x" @click="operate('*')" />
-          <Button
-            color="secondary"
-            btn="large"
-            label="RESET"
-            @click="clearAll()"
-          />
-          <Button color="secondary" btn="large" label="=" @click="equal()" />
+        <div class="h-10 mb-4 flex items-center justify-between">
+          <h2 class="text-2xl text-white">Calc</h2>
+          <history @click="open = !open" class="w-6 h-6 cursor-pointer" />
         </div>
-      </div>
-    </div>
-
-    <div class="bg-teal-800 dark:bg-gray-500 w-4 rounded-md"></div>
-
-    <div
-      class="border-2 border-teal-800 dark:border-gray-500 flex flex-col justify-between bg-teal-600 dark:bg-gray-900 w-96 text-white font-bold p-8 rounded-md"
-    >
-      <div class="h-full">
-        <h2 class="h-10 text-2xl text-white mb-4">History</h2>
 
         <div
-          class="overflow-auto scrollbar scrollbar-thumb-teal-900 dark:scrollbar-thumb-orange-300 dark:scrollbar-track-gray-200 scrollbar-track-teal-100 bg-teal-800 dark:bg-gray-700 p-6 rounded-md h-[464px] text-right"
+          class="overflow-auto scrollbar scrollbar-thumb-teal-900 dark:scrollbar-thumb-orange-300 dark:scrollbar-track-gray-200 scrollbar-track-teal-100 h-28 break-words bg-teal-800 dark:bg-gray-700 text-white mb-8 rounded-md text-right text-2xl px-6 py-4"
         >
-          <template v-if="histories > []">
-            <button class="mb-4 flex items-center" @click="clearStorage()">
-              <Delete class="mr-1 text-white" /> Clear all
-            </button>
-          </template>
-          <div v-for="(history, n) in histories" :key="n">
-            <div
-              @click="modify(n)"
-              class="cursor-pointer flex justify-end mb-2 pb-2 border-b-[1px] border-white"
-            >
-              <span class="break-words max-h-24 mr-4">{{ history }}</span>
-              <div>
-                <button
-                  class="flex items-center justify-center rounded-full w-6 h-6"
-                  @click="removeHistory(n)"
-                >
-                  <Delete class="text-red-500" />
-                </button>
+          <span class="text-base">{{ formule }}</span
+          ><br />
+          <span v-if="!error">{{ result }}</span
+          ><span v-if="error">{{ error }}</span>
+        </div>
+
+        <div class="bg-teal-800 dark:bg-gray-700 p-6 rounded-md">
+          <div class="grid grid-cols-4 gap-4">
+            <Button label="7" @click="operate(7)" />
+            <Button label="8" @click="operate(8)" />
+            <Button label="9" @click="operate(9)" />
+            <Button color="secondary" label="DEL" @click="drop()" />
+            <Button label="4" @click="operate(4)" />
+            <Button label="5" @click="operate(5)" />
+            <Button label="6" @click="operate(6)" />
+            <Button label="+" @click="operate('+')" />
+            <Button label="1" @click="operate(1)" />
+            <Button label="2" @click="operate(2)" />
+            <Button label="3" @click="operate(3)" />
+            <Button label="-" @click="operate('-')" />
+            <Button label="." @click="operate('.')" />
+            <Button label="0" @click="operate(0)" />
+            <Button label="/" @click="operate('/')" />
+            <Button label="x" @click="operate('*')" />
+            <Button
+              color="secondary"
+              btn="large"
+              label="RESET"
+              @click="clearAll()"
+            />
+            <Button color="secondary" btn="large" label="=" @click="equal()" />
+          </div>
+        </div>
+      </div>
+
+      <div
+        :class="[open ? 'hidden lg:block' : 'hidden']"
+        class="w-4 rounded-md bg-teal-800 dark:bg-gray-500"
+      ></div>
+
+      <div
+        :class="[
+          open
+            ? 'z-10 absolute top-0 left-0 lg:block lg:relative h-full'
+            : 'hidden',
+        ]"
+        class="border-2 border-teal-800 dark:border-gray-500 flex flex-col justify-between bg-teal-600 dark:bg-gray-900 w-96 text-white font-bold p-8 rounded-md"
+      >
+        <div>
+          <div class="h-10 mb-4 flex items-center justify-between">
+            <h2 class="text-2xl text-white">History</h2>
+            <history
+              @click="open = !open"
+              :class="[open ? 'block lg:hidden' : 'hidden']"
+              class="w-6 h-6 cursor-pointer"
+            />
+          </div>
+
+          <div
+            class="overflow-auto scrollbar scrollbar-thumb-teal-900 dark:scrollbar-thumb-orange-300 dark:scrollbar-track-gray-200 scrollbar-track-teal-100 bg-teal-800 dark:bg-gray-700 p-6 rounded-md h-[464px] text-right"
+          >
+            <template v-if="histories > []">
+              <button class="mb-4 flex items-center" @click="clearStorage()">
+                <Delete class="mr-1 text-white" /> Clear all
+              </button>
+            </template>
+            <div v-for="(history, n) in histories" :key="n">
+              <div
+                @click="modify(n)"
+                class="cursor-pointer flex justify-end mb-2 pb-2 border-b-[1px] border-white"
+              >
+                <span class="break-words max-h-24 mr-4">{{ history }}</span>
+                <div>
+                  <button
+                    class="flex items-center justify-center rounded-full w-6 h-6"
+                    @click="removeHistory(n)"
+                  >
+                    <Delete class="text-red-500" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div
-        class="bg-teal-800 dark:bg-gray-700 px-4 py-2 rounded-md text-center text-sm flex justify-between"
-      >
-        <div>Copyright © 2022</div>
-        <div>Ambre Vanneuville</div>
+        <div
+          class="absolute bottom-8 left-8 w-[316px] bg-teal-800 dark:bg-gray-700 px-4 py-2 rounded-md text-center text-sm flex justify-between"
+        >
+          <div>Copyright © 2022</div>
+          <div>Ambre Vanneuville</div>
+        </div>
       </div>
     </div>
   </div>
@@ -90,10 +110,12 @@
 <script>
 import Button from "./Button.vue";
 import Delete from "./icons/Delete.vue";
+import History from "./icons/History.vue";
 export default {
   components: {
     Button,
     Delete,
+    History,
   },
   data() {
     return {
@@ -103,6 +125,7 @@ export default {
       histories: [],
       equation: "",
       total: "",
+      open: false,
     };
   },
 
