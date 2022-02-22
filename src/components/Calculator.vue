@@ -62,7 +62,7 @@
           <div v-for="(history, n) in histories" :key="n">
             <div
               @click="modify(n)"
-              class="bg-green-500 flex justify-end mb-2 pb-2 border-b-[1px] border-white"
+              class="cursor-pointer flex justify-end mb-2 pb-2 border-b-[1px] border-white"
             >
               <span class="break-words max-h-24 mr-4">{{ history }}</span>
               <div>
