@@ -225,14 +225,14 @@ export default {
     },
     equal(x) {
       if (this.formule && this.result !== null) {
-        try {
-          this.result = eval(this.formule);
-          if (eval(this.formule) == null) {
-            this.result = null;
-          }
-        } catch (error) {
-          this.error = "ERROR";
+        // try {
+        this.result = eval(this.formule);
+        if (eval(this.formule) == null) {
+          this.result = null;
         }
+        // } catch (error) {
+        //   this.error = "ERROR";
+        // }
         this.total = eval(this.formule);
         this.equation = this.formule + " = " + this.total;
         this.histories.push(this.equation);
