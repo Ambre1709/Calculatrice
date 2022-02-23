@@ -31,7 +31,7 @@
 export default {
   data: function () {
     return {
-      showShadow: "",
+      showShadow: false,
     };
   },
   props: {

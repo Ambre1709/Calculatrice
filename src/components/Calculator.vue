@@ -136,7 +136,21 @@ export default {
   },
 
   mounted() {
-    window.addEventListener("keydown", (event) => {
+    window.addEventListener("keydown", this.key);
+
+    if (localStorage.getItem("histories")) {
+      try {
+        this.histories = JSON.parse(localStorage.getItem("histories"));
+      } catch (e) {
+        localStorage.removeItem("histories");
+      }
+    }
+  },
+  unmounted() {
+    window.removeEventListener("keydown", this.key);
+  },
+  methods: {
+    key(event) {
       if (event.key === "Enter") {
         this.equal();
       }
@@ -191,17 +205,8 @@ export default {
       if (event.key === "Delete") {
         this.clearAll();
       }
-    });
+    },
 
-    if (localStorage.getItem("histories")) {
-      try {
-        this.histories = JSON.parse(localStorage.getItem("histories"));
-      } catch (e) {
-        localStorage.removeItem("histories");
-      }
-    }
-  },
-  methods: {
     modify(x) {
       let history = JSON.parse(localStorage.histories);
       let splits = history[x].split(" = ");
@@ -259,9 +264,7 @@ export default {
     },
     clearStorage() {
       localStorage.removeItem("histories", []);
-      this.histories = "";
-      window.location.reload();
-      // this.$emit("refresh");
+      this.histories = [];
     },
   },
 };
