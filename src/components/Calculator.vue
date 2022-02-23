@@ -204,8 +204,11 @@ export default {
   methods: {
     modify(x) {
       let history = JSON.parse(localStorage.histories);
-      console.log(history[x]);
-      // console.log(history);
+      let splits = history[x].split(" = ");
+      this.formule = splits[0];
+      this.result = splits[1];
+      // console.log(splits[0]);
+      // console.log(splits[1]);
     },
 
     removeHistory(x) {
